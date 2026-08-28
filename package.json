@@ -1,0 +1,8 @@
+{
+  "name": "icn-live-agent-portal",
+  "version": "3.0.0",
+  "type": "module",
+  "dependencies": {
+    "openai": "^5.0.0"
+  }
+}
