@@ -1,0 +1,1 @@
+پوشه API برای اتصال نسخه Vercel/Node است و GitHub Pages آن را اجرا نمی‌کند.

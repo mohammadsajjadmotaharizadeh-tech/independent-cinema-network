@@ -1,124 +1,243 @@
 {
   "sudden": {
-    "title_fa": "ناگهان برمی‌خیزد",
-    "title_en": "Sudden Rise",
-    "film_code": "FILM-SR-001",
+    "title": "ناگهان برمی‌خیزد",
+    "en": "Sudden Rise",
+    "code": "FILM-SR-001",
+    "username": "sudden.director",
+    "password": "SR-ICN-2026!",
     "status": "بازمعماری کامل پخش",
-    "identity": {
-      "country": "ایران",
-      "year": "2025",
-      "runtime": "16:50",
-      "language": "فارسی",
-      "subtitles": "انگلیسی",
-      "aspect": "4:3",
-      "type": "فیلم کوتاه داستانی",
-      "genre": "رئالیسم جادویی / درام"
-    },
+    "year": "۲۰۲۵",
+    "runtime": "۱۶:۵۰",
+    "country": "ایران",
+    "language": "فارسی / زیرنویس انگلیسی",
+    "aspect": "۴:۳",
+    "genre": "رئالیسم جادویی / درام / طنز سیاه ظریف",
+    "logline": "در روستایی دورافتاده که رونقش زمانی به زائران یک سنگ مقدس وابسته بود، مردی درون سنگ گرفتار می‌شود و اهالی باید میان نجات جان او و حفظ باوری که زندگی جمعی‌شان را نگه داشته انتخاب کنند.",
     "agent": {
-      "mission": "بازطراحی معماری پخش از صفر و بازیابی کامل تاریخچه",
-      "working": "ممیزی ۶۷ ثبت FilmFreeway + ثبت‌های مستقیم + Premiere Audit + Opportunity Recovery",
-      "last_verified": "سه انتخاب قطعی شناخته‌شده: Yalda، World Film Festival Kolkata و IFFJK. ثبت Brussels و RIIFF نیز Pending هستند.",
-      "risk": "نمایش IFFJK یا Kolkata قبل از ممیزی Premiere ممکن است بخشی از فرصت‌های حساس را محدود کند.",
-      "next": "تکمیل رجیستری واحد و تقسیم جشنواره‌ها به قابل احیا / سوخته / نیازمند استعلام / در انتظار"
+      "mission": "بازطراحی معماری پخش از صفر؛ نه ادامه مکانیکی مسیر قبلی.",
+      "working": "ممیزی ۶۷ ثبت FilmFreeway + بازیابی ثبت‌های مستقیم + Premiere Audit + Opportunity Recovery",
+      "last": "سه انتخاب قطعی شناخته‌شده: Yalda، World Film Festival Kolkata و IFFJK. Brussels و RIIFF نیز ثبت و در انتظار نتیجه‌اند.",
+      "risk": "تأیید نمایش IFFJK یا Kolkata قبل از ممیزی Premiere ممکن است بخشی از فرصت‌های حساس‌تر را محدود کند.",
+      "next": "ساخت رجیستری واحد و تقسیم تمام مسیرها به قابل احیا / سوخته / نیازمند استعلام / در انتظار."
     },
+    "stats": [
+      [
+        "ثبت FilmFreeway",
+        "۶۷"
+      ],
+      [
+        "انتخاب قطعی",
+        "۳"
+      ],
+      [
+        "Not Selected ثبت‌شده",
+        "۲۸"
+      ],
+      [
+        "وضعیت",
+        "بازمعماری"
+      ]
+    ],
     "strengths": [
-      "هویت روایی و تماتیک روشن و قابل معرفی بین‌المللی",
-      "مدت ۱۶:۵۰ برای بسیاری از بخش‌های رقابتی فیلم کوتاه قابل مدیریت است",
-      "سه انتخاب قطعی و چند مسیر رایگان/waiver فعال",
-      "حجم داده تاریخی کافی برای ساخت تصمیم‌گیری ضدتکرار و مبتنی بر شواهد"
+      "هویت روایی و تماتیک مشخص؛ ایمان، اقتصاد، اخلاق جمعی و ارزش جان انسان.",
+      "مدت ۱۶:۵۰ برای بخش مهمی از رقابت‌های فیلم کوتاه قابل مدیریت است.",
+      "سه انتخاب قطعی و چند مسیر waiver/free فعال.",
+      "داده تاریخی زیاد برای ساخت موتور ضدتکرار و حافظه تصمیم واقعی."
     ],
     "weaknesses": [
-      "تاریخچه کامل ثبت‌های مستقیم خارج FilmFreeway هنوز بازیابی نشده",
-      "چند ثبت قبلی در دسته‌بندی نامتناسب انجام شده است",
-      "تصمیم نمایش IFFJK/Kolkata هنوز نیازمند Premiere Audit است",
-      "سال تولید ۲۰۲۵ بخشی از فراخوان‌های آینده را محدود می‌کند"
+      "تاریخچه ثبت‌های مستقیم خارج FilmFreeway هنوز کامل تجمیع نشده است.",
+      "چند ثبت قبلی در دسته‌بندی نامتناسب انجام شده؛ در نتیجه «رد هنری در دسته درست» برای آن‌ها اثبات نشده.",
+      "Premiere Audit برای نمایش‌های هند باز است.",
+      "سال تولید ۲۰۲۵ بخشی از فراخوان‌های بعدی را محدود می‌کند."
     ],
-    "past_errors": [
-      {
-        "title": "ثبت در دسته‌بندی نامتناسب",
-        "why": "فرم‌های متعدد، deadline، تفاوت نام بخش‌ها و مسیرهای code/waiver می‌توانند خطای اپراتوری ایجاد کنند.",
-        "fix": "Eligibility Engine + Category Guard قبل از هر ثبت"
-      },
-      {
-        "title": "پراکندگی تاریخچه پخش",
-        "why": "اطلاعات میان FilmFreeway، ایمیل، ثبت مستقیم و پیام‌رسان پراکنده بوده است.",
-        "fix": "رجیستری واحد + Decision Memory + Duplicate Guard"
-      },
-      {
-        "title": "ریسک پیشنهاد تکراری",
-        "why": "بدون منبع حقیقت واحد، یک جشنواره ممکن است بعداً مثل فرصت تازه دیده شود.",
-        "fix": "History Check اجباری قبل از Search→Action"
-      },
-      {
-        "title": "ابهام در اثر Premiere",
-        "why": "هر انتخاب یا screening اثر یکسانی روی جشنواره‌های بعدی ندارد و قواعد متغیرند.",
-        "fix": "Premiere Guard برای هر نمایش پیش از تأیید"
-      }
+    "errors": [
+      [
+        "Aspen → Animation",
+        "فیلم لایو اکشن در دسته Animation ثبت شده.",
+        "تطبیق خودکار نوع فیلم و category قبل از ثبت."
+      ],
+      [
+        "Golden Apricot → بخش Armenia-limited",
+        "بخش انتخاب‌شده با شرایط فیلم ایرانی همخوان نبوده.",
+        "Eligibility Gate بر اساس کشور/بخش."
+      ],
+      [
+        "Ras Al Khaimah / Saratov / DO PÃO → Documentary",
+        "فیلم داستانی در مسیر مستند قرار گرفته.",
+        "Category Guard و تأیید نوع فیلم."
+      ],
+      [
+        "Yalova → Animation",
+        "اختلاف آشکار بین نوع فیلم و بخش ثبت.",
+        "Fail Closed در mismatch واضح."
+      ],
+      [
+        "سال اشتباه در برخی outreachها",
+        "در چند ایمیل سال ۲۰۲۴ نوشته شده در حالی که سال مرجع ۲۰۲۵ است.",
+        "Film Identity Lock و پرکردن خودکار metadata از منبع حقیقت."
+      ],
+      [
+        "تاریخچه پراکنده",
+        "FilmFreeway، ثبت مستقیم، ایمیل و پیام‌رسان یکجا نبوده‌اند.",
+        "Shared Registry + Decision Memory + Evidence Log."
+      ]
+    ],
+    "why_human": [
+      "پخش حرفه‌ای با ده‌ها پلتفرم، deadline، نام بخش و قانون متغیر همزمان سروکار دارد.",
+      "کدها و waiverها گاهی مسیر ثبت را تغییر می‌دهند و احتمال انتخاب بخش اشتباه را بالا می‌برند.",
+      "وقتی داده بین چند ابزار پخش باشد، حافظه انسانی به‌تنهایی منبع حقیقت قابل اتکا نیست.",
+      "هدف ICN حذف انسان نیست؛ تبدیل خطاهای قابل‌وقوع انسانی به کنترل‌های سیستمی است."
     ],
     "strategy": [
-      "ادغام ۶۷ ثبت FilmFreeway، ثبت‌های مستقیم پخش‌کننده قبلی و outreach جدید در یک رجیستری واحد",
-      "ممیزی Premiere برای IFFJK و World Film Festival Kolkata قبل از هر نمایش",
-      "تمرکز فعال روی A/A+ و مسیرهای Oscar/BAFTA/EFA با اولویت waiver/free",
-      "مسدودکردن خودکار مسیرهای تکراری، غیرواجدشرایط و C/D",
-      "بررسی نسخه جدید واقعی ۲۰۲۶ فقط در صورت تغییر هنری معنادار و استعلام مستقیم eligibility",
-      "تصمیم درباره ادامه همکاری پخش‌کننده قبلی فقط بعد از تکمیل تاریخچه و شواهد"
+      "رجیستری واحد: ۶۷ ثبت FilmFreeway + تمام Direct Submissionهای پخش‌کننده قبلی + outreach جدید.",
+      "Premiere Guard: هیچ screening مهمی بدون ارزیابی اثر روی فرصت‌های بالاتر تأیید نشود.",
+      "تمرکز فعال فقط روی A/A+ و شبکه‌های Oscar / BAFTA / EFA؛ waiver/free first.",
+      "مسیرهای C/D و تکراری به‌صورت پیش‌فرض BLOCK.",
+      "مسیر نسخه جدید واقعی ۲۰۲۶ فقط در صورت تغییر هنری معنادار + استعلام مستقیم eligibility.",
+      "همکاری یا تغییر پخش‌کننده بر اساس داده کامل، قرارداد، پوشش واقعی و ارزش افزوده تصمیم‌گیری شود."
+    ],
+    "festivals": [
+      [
+        "Yalda Short Film Festival",
+        "Selected",
+        "قطعی"
+      ],
+      [
+        "World Film Festival Kolkata",
+        "Selected",
+        "Premiere Audit قبل از نمایش"
+      ],
+      [
+        "IFFJK 2026",
+        "Selected — Non-Competition",
+        "تأیید screening فعلاً مشروط"
+      ],
+      [
+        "Brussels Short Film Festival",
+        "Submitted / Pending",
+        "Full fee waiver"
+      ],
+      [
+        "Flickers’ RIIFF 2027",
+        "Submitted / Pending",
+        "Full waiver"
+      ],
+      [
+        "Uppsala Short Film Festival",
+        "Pending",
+        "ثبت قبلی قطعی"
+      ],
+      [
+        "Tampere Film Festival",
+        "Not Selected",
+        "BLOCK؛ ارسال قبلی"
+      ],
+      [
+        "Go Short",
+        "Not Eligible",
+        "BLOCK"
+      ],
+      [
+        "Tirana International Film Festival",
+        "Closed",
+        "برنامه بسته شده"
+      ]
     ]
   },
   "battle": {
-    "title_fa": "نبرد سایه‌ها",
-    "title_en": "Battle of the Shadows",
-    "film_code": "FILM-BOS-002",
-    "status": "ممیزی پخش قبلی + قفل هویت فیلم",
-    "identity": {
-      "country": "نیازمند راستی‌آزمایی",
-      "year": "نیازمند راستی‌آزمایی",
-      "runtime": "نیازمند راستی‌آزمایی",
-      "language": "نیازمند راستی‌آزمایی",
-      "subtitles": "نیازمند راستی‌آزمایی",
-      "aspect": "نیازمند راستی‌آزمایی",
-      "type": "فیلم کوتاه",
-      "genre": "پس از بازبینی کامل فیلم قفل می‌شود"
-    },
+    "title": "نبرد سایه‌ها",
+    "en": "Battle of the Shadows",
+    "code": "FILM-BOS-002",
+    "username": "battle.director",
+    "password": "BOS-ICN-2026!",
+    "status": "ممیزی پخش قبلی + بازسازی هویت",
+    "year": "در حال راستی‌آزمایی",
+    "runtime": "در حال راستی‌آزمایی",
+    "country": "ایران / نیازمند قفل پرونده",
+    "language": "در حال راستی‌آزمایی",
+    "aspect": "در حال راستی‌آزمایی",
+    "genre": "پس از بازبینی کامل فیلم قفل می‌شود",
+    "logline": "تا پایان بازبینی کامل فیلم و قفل روایت، لاگ‌لاین نهایی منتشر نمی‌شود.",
     "agent": {
-      "mission": "بازیابی گزارش پخش اولیه و بازسازی کامل Film Identity",
-      "working": "Distribution Forensics + Full-film Narrative Pass",
-      "last_verified": "دو حضور رقابتی قطعی فعلی: 79th Salerno Film Festival و 10th Poppy Jasper International Film Festival.",
-      "risk": "هر ارسال تازه پیش از تکمیل تاریخچه می‌تواند تکراری یا از نظر Premiere مخرب باشد.",
-      "next": "استخراج submission / selection / rejection / screening / premiere / distributor history و ساخت رجیستری اولیه"
+      "mission": "گزارش پخش اولیه + بازیابی کامل تاریخچه + Full-film Narrative Pass.",
+      "working": "Distribution Forensics و بازسازی صحنه‌به‌صحنه فیلم به‌صورت موازی.",
+      "last": "دو حضور رقابتی قطعی: 79th Salerno Film Festival و 10th Poppy Jasper International Film Festival.",
+      "risk": "هر ارسال تازه قبل از تکمیل history و Premiere Audit می‌تواند تکراری یا استراتژیکاً مخرب باشد.",
+      "next": "استخراج submission / selection / rejection / screening / premiere / distributor history و ساخت رجیستری اولیه."
     },
+    "stats": [
+      [
+        "انتخاب قطعی شناخته‌شده",
+        "۲"
+      ],
+      [
+        "گزارش پخش قبلی",
+        "در حال بازیابی"
+      ],
+      [
+        "هویت فیلم",
+        "در حال قفل"
+      ],
+      [
+        "کمپین جدید",
+        "فعلاً HOLD"
+      ]
+    ],
     "strengths": [
-      "حداقل دو حضور رقابتی بین‌المللی قطعی در منابع موجود",
-      "امکان بازسازی مسیر پخش با معماری داده‌محور از ابتدا",
-      "سابقه جشنواره‌ای موجود برای شروع Distribution Forensics"
+      "حداقل دو حضور رقابتی بین‌المللی قطعی در منابع موجود.",
+      "سابقه جشنواره‌ای واقعی برای شروع Distribution Forensics.",
+      "امکان ساخت پرونده جدید با معماری ضدخطا از ابتدا."
     ],
     "weaknesses": [
-      "گزارش کامل پخش‌کننده قبلی هنوز در پرونده فعلی موجود نیست",
-      "سال، مدت، ژانر، وضعیت Premiere و سابقه نمایش کامل هنوز قفل نشده",
-      "تحلیل روایی قبلی از مشاهده ناقص بوده و باید از صفر تثبیت شود"
+      "گزارش کامل پخش‌کننده قبلی هنوز بازیابی نشده.",
+      "سال، مدت، ژانر، Premiere و تاریخچه screening هنوز کامل قفل نشده‌اند.",
+      "تحلیل روایی قبلی از مشاهده ناقص انجام شده و به‌عنوان خطای ایجنت ثبت شده است."
     ],
-    "past_errors": [
-      {
-        "title": "نتیجه‌گیری زودهنگام از فیلم",
-        "why": "مشاهده ناقص می‌تواند داستان، ژانر و positioning را منحرف کند.",
-        "fix": "Full-film pass + Scene-by-scene map + برچسب Confirmed/Inference/Unknown"
-      },
-      {
-        "title": "ناقص بودن گزارش پخش قبلی",
-        "why": "وقتی گزارش نهایی و اسناد در یک پرونده واحد جمع نشوند، مسیر واقعی فیلم روشن نمی‌ماند.",
-        "fix": "Distribution Forensics + Evidence Registry"
-      },
-      {
-        "title": "ریسک ارسال تکراری",
-        "why": "بدون تاریخچه کامل، جشنواره‌ای که قبلاً بررسی یا ثبت شده ممکن است دوباره هدف قرار گیرد.",
-        "fix": "Duplicate Guard قبل از هر فرصت تازه"
-      }
+    "errors": [
+      [
+        "Agent Failure #1",
+        "نتیجه‌گیری روایی از مشاهده ناقص فیلم.",
+        "Full-film pass قبل از positioning."
+      ],
+      [
+        "تاریخچه ناقص پخش",
+        "اطلاعات ثبت/رد/نمایش در یک رجیستری کامل در دسترس نیست.",
+        "Distribution Forensics + Evidence Registry."
+      ],
+      [
+        "خطر شروع کمپین زودهنگام",
+        "بدون history کامل ممکن است تکرار یا آسیب Premiere رخ دهد.",
+        "HOLD تمام submissionهای جدید تا پایان audit."
+      ]
+    ],
+    "why_human": [
+      "گزارش‌های پخش قدیمی ممکن است میان فایل، ایمیل، پلتفرم و پیام‌رسان پخش شده باشند.",
+      "اگر فیلم به‌صورت کامل دیده نشود، حتی یک تحلیلگر حرفه‌ای ممکن است positioning اشتباه بسازد.",
+      "سیستم جدید باید هر گزاره را به Confirmed / Strong inference / Unknown تفکیک کند."
     ],
     "strategy": [
-      "بازیابی فوری گزارش پخش قبلی و ساخت Distribution Forensics",
-      "ثبت قطعی Salerno 79th و Poppy Jasper 10th به‌عنوان نقطه شروع، نه کل تاریخچه",
-      "همزمان انجام Full-film Narrative Pass و Film Identity Lock",
-      "تا تکمیل history، ارسال جدید متوقف و فقط تحقیق/راستی‌آزمایی انجام شود",
-      "بعد از قفل هویت و تاریخچه: طراحی کمپین A/A+، waiver/free first و Premiere Guard"
+      "بازیابی فوری گزارش پخش قبلی و تمام اسناد قابل اثبات.",
+      "ثبت Salerno 79th و Poppy Jasper 10th به‌عنوان نقطه شروع، نه کل تاریخچه.",
+      "Full-film Narrative Pass + Scene-by-scene Map + Film Identity Lock.",
+      "تا تکمیل history، هیچ ارسال جدید انجام نشود.",
+      "پس از قفل پرونده: استراتژی A/A+، waiver/free first، Premiere Guard و Buyer/Sales route."
+    ],
+    "festivals": [
+      [
+        "79th Salerno Film Festival",
+        "Competition",
+        "قطعی"
+      ],
+      [
+        "10th Poppy Jasper International Film Festival",
+        "Competition",
+        "قطعی"
+      ],
+      [
+        "سایر ثبت‌ها",
+        "Unknown",
+        "در حال بازیابی گزارش پخش قبلی"
+      ]
     ]
   }
 }

@@ -1,0 +1,13 @@
+PASS — index exists
+PASS — portal exists
+PASS — film-data exists
+PASS — index links portal
+PASS — portal has both films
+PASS — portal has live agent
+PASS — portal has audit
+PASS — portal has strategy
+PASS — portal has strengths
+PASS — portal has decision memory
+PASS — portal has reputation guard
+PASS — public site has previous modules
+PASS — data JSON valid
