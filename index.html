@@ -3,55 +3,59 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#111827" />
-  <title>شبکه سینمای مستقل — ایجنت فیلم</title>
+  <meta name="theme-color" content="#0b1020" />
+  <title>شبکه سینمای مستقل — مدیر هوشمند پخش فیلم</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="app-shell">
     <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-mark">ICN</div>
-        <div>
-          <strong>شبکه سینمای مستقل</strong>
-          <small>ایجنت هوشمند فیلم</small>
+      <div class="brand-wrap">
+        <div class="brand">
+          <div class="brand-mark">ICN</div>
+          <div>
+            <strong>شبکه سینمای مستقل</strong>
+            <small>مدیر هوشمند پخش و جشنواره</small>
+          </div>
         </div>
+        <div class="status-chip"><span class="dot online"></span> پایش روزانه فعال</div>
       </div>
-      <nav id="nav">
-        <button data-page="today" class="active">امروز چه تغییر کرد؟</button>
-        <button data-page="film">پروفایل فیلم</button>
-        <button data-page="festivals">جشنواره‌ها</button>
-        <button data-page="calendar">تقویم نتایج</button>
-        <button data-page="decisions">حافظه تصمیم</button>
-        <button data-page="guard">نگهبان حیثیت</button>
-        <button data-page="settings">تنظیمات ایجنت</button>
+
+      <nav id="nav" class="nav-list">
+        <button data-page="home" class="active">خانه</button>
+        <button data-page="ourFilms">فیلم‌های ما</button>
+        <button data-page="login">ورود فیلمساز</button>
+        <button data-page="dashboard" data-protected="true">داشبورد کارگردان</button>
+        <button data-page="film" data-protected="true">پرونده فیلم</button>
+        <button data-page="festivals" data-protected="true">جشنواره‌ها</button>
+        <button data-page="calendar" data-protected="true">تقویم نتایج</button>
+        <button data-page="decisions" data-protected="true">حافظه تصمیم</button>
+        <button data-page="guard" data-protected="true">نگهبان حیثیت</button>
+        <button data-page="settings" data-protected="true">تنظیمات ایجنت</button>
       </nav>
+
       <div class="sidebar-footer">
-        <span class="dot online"></span>
-        <span>پایش روزانه فعال</span>
+        <div class="mini-card">
+          <small>نسخه آزمایشی</small>
+          <b>مخصوص تست واقعی فیلم</b>
+          <p>بدون ارسال تکراری، بدون از دست‌دادن موعدها، با تقویم شمسی و حافظه تصمیم.</p>
+        </div>
       </div>
     </aside>
 
     <main>
       <header class="topbar">
         <div>
-          <h1 id="page-title">امروز چه تغییر کرد؟</h1>
-          <p id="page-subtitle">خلاصه اجرایی پرونده «ناگهان برمی‌خیزد»</p>
+          <h1 id="page-title">خانه</h1>
+          <p id="page-subtitle">داشبورد سینمایی، فارسی و هوشمند برای مدیریت پخش فیلم مستقل</p>
         </div>
-        <div class="film-pill">
-          <span>FILM-SR-001</span>
-          <b>ناگهان برمی‌خیزد</b>
-        </div>
+        <div class="session-panel" id="session-panel"></div>
       </header>
 
       <section id="content"></section>
     </main>
   </div>
-
-  <template id="card-template">
-    <article class="card"></article>
-  </template>
 
   <script src="app.js"></script>
 </body>
