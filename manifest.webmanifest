@@ -1,0 +1,10 @@
+{
+  "name":"شبکه سینمای مستقل — ایجنت فیلم",
+  "short_name":"ICN Agent",
+  "start_url":"./index.html",
+  "display":"standalone",
+  "background_color":"#f5f7fb",
+  "theme_color":"#111827",
+  "lang":"fa",
+  "dir":"rtl"
+}
