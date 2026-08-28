@@ -1,6 +1,7 @@
 {
-  "name": "icn-live-agent-portal",
+  "name": "independent-cinema-network",
   "version": "3.0.0",
+  "private": true,
   "type": "module",
   "dependencies": {
     "openai": "^5.0.0"
