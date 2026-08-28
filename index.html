@@ -1,62 +1,90 @@
 <!doctype html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b1020" />
-  <title>شبکه سینمای مستقل — مدیر هوشمند پخش فیلم</title>
-  <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#06090f">
+  <meta name="description" content="شبکه سینمای مستقل؛ زیرساخت هوشمند مدیریت پخش، جشنواره و فرصت‌های بین‌المللی فیلم مستقل">
+  <title>شبکه سینمای مستقل | Independent Cinema Network</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <div class="app-shell">
-    <aside class="sidebar">
-      <div class="brand-wrap">
-        <div class="brand">
-          <div class="brand-mark">ICN</div>
-          <div>
-            <strong>شبکه سینمای مستقل</strong>
-            <small>مدیر هوشمند پخش و جشنواره</small>
-          </div>
-        </div>
-        <div class="status-chip"><span class="dot online"></span> پایش روزانه فعال</div>
+  <div class="grain"></div>
+  <header class="site-header">
+    <a class="brand" href="#top"><span class="brand-logo">ICN</span><span class="brand-copy"><b>شبکه سینمای مستقل</b><small>زیرساخت هوشمند پخش بین‌المللی</small></span></a>
+    <nav class="desktop-nav"><a href="#why">چرا ما؟</a><a href="#films">فیلم‌های در دست پخش</a><a href="#system">سیستم ما</a><a href="#director">پرونده نمونه</a></nav>
+    <button class="login-top" data-open-login>ورود فیلمساز</button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-media"><img src="./assets/sudden-rise-hero.jpg" alt="نمایی از فیلم ناگهان برمی‌خیزد"><div class="hero-shade"></div></div>
+      <div class="hero-content">
+        <div class="kicker">INDEPENDENT CINEMA NETWORK</div>
+        <h1>فیلم شما نباید<br><em>هیچ فرصت مهمی</em> را از دست بدهد.</h1>
+        <p>ما یک فهرست جشنواره نیستیم. برای هر فیلم یک پرونده زنده می‌سازیم؛ با حافظه تصمیم، پایش موعدها، کنترل تکرار، تحلیل ریسک و مدیریت مسیر پخش.</p>
+        <div class="hero-actions"><button class="btn primary" data-open-login>ورود به پنل فیلمساز</button><a class="btn glass" href="#why">چرا این پلتفرم؟</a></div>
+        <div class="hero-proof"><span><b>۲۴/۷</b> حافظه پرونده</span><span><b>شمسی</b> تقویم نتایج</span><span><b>Fail Closed</b> توقف در ابهام</span></div>
       </div>
+      <div class="scroll-hint">برای کشف پلتفرم اسکرول کنید ↓</div>
+    </section>
 
-      <nav id="nav" class="nav-list">
-        <button data-page="home" class="active">خانه</button>
-        <button data-page="ourFilms">فیلم‌های ما</button>
-        <button data-page="login">ورود فیلمساز</button>
-        <button data-page="dashboard" data-protected="true">داشبورد کارگردان</button>
-        <button data-page="film" data-protected="true">پرونده فیلم</button>
-        <button data-page="festivals" data-protected="true">جشنواره‌ها</button>
-        <button data-page="calendar" data-protected="true">تقویم نتایج</button>
-        <button data-page="decisions" data-protected="true">حافظه تصمیم</button>
-        <button data-page="guard" data-protected="true">نگهبان حیثیت</button>
-        <button data-page="settings" data-protected="true">تنظیمات ایجنت</button>
-      </nav>
+    <section class="statement reveal" id="why">
+      <div class="section-tag">چرا ما را انتخاب کنید؟</div>
+      <h2>چون مشکل واقعی پخش فیلم، پیدا کردن جشنواره نیست؛ <span>فراموش نکردن صدها تصمیم</span> است.</h2>
+      <p>فیلمساز مستقل با ایمیل‌های پراکنده، تاریخ‌های اعلام نتیجه، قوانین متغیر، درخواست‌های معافیت هزینه، خطر ارسال تکراری و تعهدهای حقوقی روبه‌روست. شبکه سینمای مستقل همه این‌ها را به یک سیستم تصمیم‌گیری قابل پیگیری تبدیل می‌کند.</p>
+    </section>
 
-      <div class="sidebar-footer">
-        <div class="mini-card">
-          <small>نسخه آزمایشی</small>
-          <b>مخصوص تست واقعی فیلم</b>
-          <p>بدون ارسال تکراری، بدون از دست‌دادن موعدها، با تقویم شمسی و حافظه تصمیم.</p>
-        </div>
+    <section class="benefit-slider reveal">
+      <div class="slider-track" id="benefitTrack">
+        <article class="benefit-slide active"><span class="slide-no">01</span><div><small>حافظه‌ای که فراموش نمی‌کند</small><h3>هر «نه»، هر ارسال، هر ایمیل و هر دلیل تصمیم ثبت می‌شود.</h3><p>سیستم نمی‌گذارد چند ماه بعد همان جشنواره دوباره مثل یک فرصت تازه جلوی شما ظاهر شود.</p></div></article>
+        <article class="benefit-slide"><span class="slide-no">02</span><div><small>نگهبان حیثیت حرفه‌ای</small><h3>قبل از هر تماس، سابقه سازمان و زنجیره ارتباط بررسی می‌شود.</h3><p>دو ایمیل به دو آدرس متفاوت در یک سازمان، راه فرار از قانون ضدتکرار نیست.</p></div></article>
+        <article class="benefit-slide"><span class="slide-no">03</span><div><small>پایش فعال</small><h3>منتظر نمی‌مانیم تا فیلمساز یادش بیفتد نتیجه چه روزی اعلام می‌شود.</h3><p>موعدها در تقویم ثبت می‌شوند و نتیجه فقط با سند رسمی مثبت یا منفی می‌شود.</p></div></article>
+        <article class="benefit-slide"><span class="slide-no">04</span><div><small>اصل توقف در ابهام</small><h3>وقتی داده ناقص است، سیستم حدس نمی‌زند؛ اقدام را می‌بندد.</h3><p>«نامشخص» هرگز معادل «مشکلی نیست» نیست. این قانون برای حفاظت از اعتبار فیلمساز طراحی شده است.</p></div></article>
       </div>
-    </aside>
+      <div class="slider-controls"><div id="sliderDots" class="slider-dots"></div><span>اسلایدها خودکار ورق می‌خورند</span></div>
+    </section>
 
-    <main>
-      <header class="topbar">
-        <div>
-          <h1 id="page-title">خانه</h1>
-          <p id="page-subtitle">داشبورد سینمایی، فارسی و هوشمند برای مدیریت پخش فیلم مستقل</p>
+    <section class="features reveal">
+      <article><span>01</span><h3>تقویم هوشمند نتایج</h3><p>موعدهای نتیجه با تاریخ شمسی، وضعیت انتظار و کد پیگیری در یک نگاه.</p></article>
+      <article><span>02</span><h3>حافظه تصمیم</h3><p>تصمیم قبلی + دلیل + شرط بازگشایی؛ نه یک یادداشت مبهم.</p></article>
+      <article><span>03</span><h3>رادار فرصت</h3><p>فرصت تازه فقط بعد از کنترل شرایط واقعی فیلم نمایش داده می‌شود.</p></article>
+      <article><span>04</span><h3>پایش معافیت هزینه</h3><p>وضعیت درخواست، پاسخ، تخفیف و اقدام بعدی در همان پرونده.</p></article>
+      <article><span>05</span><h3>هشدار حقوق و نمایش نخست</h3><p>تصمیم‌های پرریسک بدون تأیید صریح صاحب فیلم جلو نمی‌روند.</p></article>
+      <article><span>06</span><h3>امروز چه تغییر کرد؟</h3><p>به‌جای انبوه داده، فقط اتفاق‌هایی که امروز واقعاً مهم‌اند.</p></article>
+    </section>
+
+    <section class="films reveal" id="films">
+      <div class="section-head"><div><div class="section-tag">فیلم‌های در دست پخش</div><h2>هر فیلم، یک پرونده زنده.</h2></div><p>نسخه آزمایشی فعلی با یک فیلم واقعی تست می‌شود تا قوانین محصول در میدان واقعی پخش ساخته شوند.</p></div>
+      <article class="film-feature">
+        <div class="poster-card"><img src="./assets/sudden-rise-portrait.jpg" alt="پوستر و تصویر فیلم ناگهان برمی‌خیزد"><div class="poster-gradient"></div><div class="poster-title"><small>SUDDEN RISE</small><h3>ناگهان برمی‌خیزد</h3><span>یک فیلم کوتاه از محمد سجاد مطهری‌زاده</span></div></div>
+        <div class="film-info">
+          <div class="film-status"><i></i> در حال پخش بین‌المللی</div>
+          <h3>ناگهان برمی‌خیزد <small>Sudden Rise</small></h3>
+          <p class="logline">در روستایی دورافتاده که رونقش زمانی به زائران یک سنگ مقدس وابسته بود، ایمان رو به افول است. وقتی مردی درون سنگ گرفتار می‌شود، عده‌ای آن را اثبات قدرت سنگ می‌بینند و عده‌ای فرصتی برای احیای روستا.</p>
+          <div class="specs"><span><small>سال</small>۲۰۲۵</span><span><small>مدت</small>۱۶:۵۰</span><span><small>کشور</small>ایران</span><span><small>نسبت تصویر</small>۴:۳</span><span><small>زبان</small>فارسی</span><span><small>زیرنویس</small>انگلیسی</span></div>
+          <div class="director-line"><div class="director-avatar">MS</div><div><small>نویسنده، تهیه‌کننده و کارگردان</small><b>محمد سجاد مطهری‌زاده</b></div></div>
+          <button class="btn primary" data-open-login>ورود کارگردان به پرونده فیلم</button>
         </div>
-        <div class="session-panel" id="session-panel"></div>
-      </header>
+      </article>
+      <div class="film-gallery"><figure><img src="./assets/sudden-rise-hero.jpg" alt="نمایی از ناگهان برمی‌خیزد"><figcaption>قاب منتخب فیلم</figcaption></figure><figure><img src="./assets/sudden-rise-group.jpg" alt="نمایی از ناگهان برمی‌خیزد"><figcaption>رئالیسم جادویی / درام</figcaption></figure><figure><img src="./assets/sudden-rise-stone.jpg" alt="سنگ مقدس در فیلم ناگهان برمی‌خیزد"><figcaption>مرکز دراماتیک داستان</figcaption></figure></div>
+    </section>
 
-      <section id="content"></section>
-    </main>
-  </div>
+    <section class="system reveal" id="system"><div class="section-tag">هسته محصول</div><h2>یک زنجیره تصمیم که قبل از «ارسال» متوقف نمی‌شود.</h2><div class="pipeline"><div><b>جست‌وجو</b><small>فرصت یا مخاطب</small></div><i>←</i><div><b>تاریخچه</b><small>آیا قبلاً سابقه داریم؟</small></div><i>←</i><div><b>شرایط</b><small>آیا فیلم واجد شرایط است؟</small></div><i>←</i><div><b>ضدتکرار</b><small>آیا تماس/ارسال تکراری است؟</small></div><i>←</i><div><b>ریسک</b><small>حقوق، هزینه، نمایش نخست</small></div><i>←</i><div class="final"><b>اقدام</b><small>فقط وقتی همه دروازه‌ها بازند</small></div></div></section>
 
-  <script src="app.js"></script>
-</body>
-</html>
+    <section class="director-section reveal" id="director">
+      <div class="director-image"><img src="./assets/sudden-rise-closeup.jpg" alt="تصویر از فیلم ناگهان برمی‌خیزد"></div>
+      <div class="director-copy"><div class="section-tag">پرونده نمونه کارگردان</div><h2>محمد سجاد مطهری‌زاده</h2><p>فارغ‌التحصیل کارگردانی با ۱۲ سال تجربه تدوین آثار داستانی و مستند. «ناگهان برمی‌خیزد» سومین فیلم داستانی او در مقام کارگردان است؛ تجربه تدوین، نگاه او به ریتم، ساختار و روایت بصری را شکل داده است.</p><div class="mini-filmography"><span><b>Private Execution</b><small>منتخب مسیر حرفه‌ای</small></span><span><b>Battle of the Shadows</b><small>رقابت‌های بین‌المللی</small></span><span><b>Sudden Rise</b><small>پرونده فعال پخش</small></span></div><button class="btn outline" data-open-login>مشاهده پنل خصوصی فیلم</button></div>
+    </section>
+
+    <section class="cta reveal"><small>برای فیلمساز مستقل طراحی شده؛ برای تصمیم حرفه‌ای ساخته شده.</small><h2>از «کجا فرستادم؟» به «قدم بعدی دقیقاً چیست؟»</h2><p>هدف ما روشن است: هیچ فرصت مهمی از دست نرود و هیچ اقدام اشتباهی به اعتبار فیلمساز آسیب نزند.</p><button class="btn primary xl" data-open-login>ورود فیلمساز</button></section>
+  </main>
+
+  <footer><div class="brand"><span class="brand-logo">ICN</span><span class="brand-copy"><b>شبکه سینمای مستقل</b><small>Independent Cinema Network</small></span></div><p>زیرساخت هوشمند مدیریت پخش و فرصت‌های بین‌المللی سینمای مستقل</p></footer>
+
+  <div class="modal" id="loginModal" aria-hidden="true"><div class="modal-backdrop" data-close-login></div><section class="login-box"><button class="close" data-close-login>×</button><div class="login-brand">ICN</div><small>ورود فیلمساز</small><h2>وارد پرونده اختصاصی فیلم شوید</h2><p>در نسخه آزمایشی، پرونده «ناگهان برمی‌خیزد» به‌عنوان نمونه واقعی فعال است.</p><label>نام فیلمساز</label><input id="filmmakerName" value="محمد سجاد مطهری‌زاده"><label>کد دسترسی نمایشی</label><input id="accessCode" value="SR-DIRECTOR-001" dir="ltr"><button class="btn primary wide" id="loginSubmit">ورود به داشبورد کارگردان</button><button class="demo-link" id="quickDemo">ورود سریع نسخه نمایشی</button></section></div>
+
+  <section class="portal" id="portal" aria-hidden="true"><aside class="portal-nav"><div class="portal-brand"><span class="brand-logo">ICN</span><div><b>پنل فیلمساز</b><small>ناگهان برمی‌خیزد</small></div></div><nav><button class="active" data-view="overview">نمای کلی</button><button data-view="film">پرونده فیلم</button><button data-view="festivals">جشنواره‌ها</button><button data-view="calendar">تقویم نتایج</button><button data-view="decisions">حافظه تصمیم</button><button data-view="guard">نگهبان حیثیت</button></nav><button class="portal-exit" id="portalExit">خروج از پنل</button></aside><div class="portal-main"><header class="portal-header"><div><small>کارگردان</small><h2>محمد سجاد مطهری‌زاده</h2></div><div class="film-code">FILM-SR-001</div></header><div id="portalContent"></div></div></section>
+  <script src="./app.js"></script>
+</body></html>
