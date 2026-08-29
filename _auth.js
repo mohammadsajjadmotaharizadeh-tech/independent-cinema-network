@@ -1,5 +1,6 @@
 import crypto from "crypto";
-const SECRET=process.env.SESSION_SECRET||"";
+const IS_PRODUCTION=process.env.NODE_ENV==="production";
+const SECRET=process.env.SESSION_SECRET||(IS_PRODUCTION?error("SESSION_SECRET required in production"):"dev-fallback-secret-change-me");
 const enc=x=>Buffer.from(x).toString("base64url");
 export function signToken(payload){
  if(!SECRET) throw new Error("SESSION_SECRET missing");
@@ -17,3 +18,4 @@ export function verifyToken(token){
   if(d.exp<Date.now())return null; return d;
  }catch{return null}
 }
+export function isProduction(){return IS_PRODUCTION;}
