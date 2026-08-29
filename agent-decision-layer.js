@@ -1,8 +1,8 @@
 import { evaluateEligibility } from "./eligibility-engine.js";
-import { getFestivalRecords, addFestivalRecord, checkSubmissionBlock } from "./festival-registry.js";
+import { getFestivalRecords, addFestivalRecord, checkSubmissionBlock, FORENSIC_CONFIDENCE } from "./festival-registry.js";
 import { canScreenWithoutBurning, getPremiereRiskStatus, PremiereType } from "./premiere-map.js";
 import { detectCategoryMismatch, batchDetectMismatches } from "./category-detection.js";
-import { recordForensic, getConfidenceSummary } from "./distribution-forensics.js";
+import { recordForensic, getFilmForensics, shouldBlockSubmission, getBlockadeReason } from "./distribution-forensics.js";
 import { getFilm } from "./data-layer.js";
 
 /**
@@ -85,17 +85,50 @@ function determineFestivalStrategy(filmKey, options = {}) {
     notes.push(`Premiere risk: ${premiereRisk.note}`);
   }
 
-  // 5. Eligibility evaluation for each potential festival
-  // (In a real implementation, this would iterate over potential festivals)
-  // For now, evaluate based on existing records
-
-  // 6. Waiver/free path classification
+  // 5. Eligibility considerations (via existing records)
   const waiverEligible = records.some(
     r => r.feePath && r.feePath.toLowerCase().includes("waiver")
   );
 
-  // 7. Build recommendations based on film state
-  
+  // 6. C/D-tier submission block - unless explicitly approved via tierOverride
+  if (!options?.tierOverride && shouldBlockSubmission(getForensicConfidence(filmKey, records.length > 0 ? records[0].festivalName : "", records.length > 0 ? records[0].edition : ""))) {
+    restrictions.push({
+      type: "TIER_BLOCK",
+      message: "Submission blocked: C/D-tier eligibility without explicit tier override",
+      severity: "medium",
+    });
+    notes.push("C/D-tier eligibility detected - tier override required for submission.");
+  }
+
+  // 7. HOLD/RED_FLAG outreach block - check forensic confidence
+  const forensicConf = getForensicConfidence(filmKey, records.length > 0 ? records[0].festivalName : "", records.length > 0 ? records[0].edition : "");
+  if (forensicConf === FORENSIC_CONFIDENCE.HOLD) {
+    restrictions.push({
+      type: "FORENSIC_HOLD",
+      message: "Forensic HOLD: uncertain history - review required before submission",
+      severity: "high",
+    });
+    notes.push("Forensic HOLD: uncertain history - review required before proceeding with submissions.");
+  }
+  if (forensicConf === FORENSIC_CONFIDENCE.RED_FLAG) {
+    restrictions.push({
+      type: "FORENSIC_RED_FLAG",
+      message: "Forensic RED_FLAG: known issue - do not submit without explicit override",
+      severity: "critical",
+    });
+    notes.push("Forensic RED_FLAG: known issue - do not submit without explicit override.");
+  }
+
+  // 8. Waiver/free path classification
+  if (waiverEligible && restrictions.length <= 1) {
+    recommendations.push({
+      type: "WAIVER_FIRST",
+      priority: "A",
+      message: "Waiver/free route recommended when strategy value is similar to paid routes.",
+      rationale: "Cost-effective path; preserves budget for higher-priority festivals.",
+    });
+  }
+
   // If film has A/A+ targets and no restrictions, recommend A/A+ festivals
   const hasStrongHistory = records.length >= 2 && 
     records.some(r => (r.result || "").toLowerCase().includes("selected"));
@@ -119,8 +152,8 @@ function determineFestivalStrategy(filmKey, options = {}) {
     });
   }
 
-  // If HOLD status from eligibility, recommend inquiry
-  if (restrictions.some(r => r.type === "CATEGORY_ERROR" || r.type === "DUPLICATE_BLOCK")) {
+  // If HOLD status from restrictions, recommend inquiry
+  if (restrictions.some(r => r.type === "CATEGORY_ERROR" || r.type === "DUPLICATE_BLOCK" || r.type === "FORENSIC_HOLD" || r.type === "FORENSIC_RED_FLAG")) {
     recommendations.push({
       type: "NEEDS_INQUIRY",
       priority: "medium",
@@ -213,7 +246,7 @@ function shouldSubmitToFestival(filmKey, festivalName, edition, options = {}) {
     return { shouldSubmit: false, reason: "HOLD: " + eligibility.reasons.join(", "), confidence: 0.7, status: eligibility.status };
   }
 
-  // 5. If we get here, submission is potentially eligible
+  // If we get here, submission is potentially eligible
   // Check premiere guard
   if (!options?.bypassPremiereGuard) {
     const premiereCheck = canScreenWithoutBurning(filmKey, {
@@ -225,6 +258,15 @@ function shouldSubmitToFestival(filmKey, festivalName, edition, options = {}) {
     if (!premiereCheck.safeToScreen) {
       return { shouldSubmit: false, reason: "Premiere guard: " + premiereCheck.reasons.join(". "), confidence: 0.8, status: "PREMIERE_RISK" };
     }
+  }
+
+  // HOLD/RED_FLAG outreach block - check forensic confidence
+  const forensicConf = getForensicConfidence(filmKey, festivalName, edition);
+  if (forensicConf === FORENSIC_CONFIDENCE.HOLD) {
+    return { shouldSubmit: false, reason: "Forensic HOLD: uncertain history - review required before submission", confidence: 0.7 };
+  }
+  if (forensicConf === FORENSIC_CONFIDENCE.RED_FLAG) {
+    return { shouldSubmit: false, reason: "Forensic RED_FLAG: known issue - do not submit without explicit override", confidence: 1 };
   }
 
   return { shouldSubmit: true, reason: "Eligibility check passed; proceeds with submission strategy.", confidence: eligibility.riskLevel === "low" ? 0.9 : 0.6, status: eligibility.status };
@@ -364,10 +406,20 @@ function versionStatus(filmKey, priorVersionKey = null) {
   };
 }
 
+/**
+ * Get forensic confidence for a film + festival combo
+ */
+function getForensicConfidence(filmKey, festivalName, edition) {
+  const records = getFilmForensics(filmKey);
+  const matching = records.filter(r => r.festivalName === festivalName && r.edition === edition);
+  return matching.length > 0 ? matching[0].confidence : FORENSIC_CONFIDENCE.UNKNOWN;
+}
+
 export {
   determineFestivalStrategy,
   shouldSubmitToFestival,
   getNextActions,
   versionStatus,
   TARGET_PRIORITY,
+  getForensicConfidence,
 };

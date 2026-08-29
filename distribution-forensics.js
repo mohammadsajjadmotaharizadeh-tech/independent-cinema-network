@@ -1,23 +1,30 @@
 /**
- * Distribution Forensics - forensic history workflow
- * Tracks verified submissions, claimed/unverified submissions,
- * missing proof, selection/rejection, screening/premiere, distributor,
- * source document, and confidence level.
+ * Distribution Forensics - unified history registry with evidence/confidence states
  * 
- * Six-field recovery mode:
- * 1. exact festival name
- * 2. edition/year
- * 3. section
- * 4. submission method
- * 5. result
- * 6. screening yes/no
+ * For each film maintain a unified history registry using these minimum fields:
+ * - exact festival name
+ * - edition/year
+ * - section/category
+ * - submission method
+ * - result/status
+ * - screening occurred: yes/no/unknown
+ * 
+ * Evidence/confidence states:
+ * - VERIFIED: has proof/documentation
+ * - CLAIMED_NEEDS_EVIDENCE: director statement, no docs
+ * - UNKNOWN: no information
+ * - HOLD: uncertain, review required
+ * - RED_FLAG: known issue, block submissions
+ * 
+ * Never treat an unverified distributor claim as a confirmed submission.
  */
 
 const FORENSIC_CONFIDENCE = {
-  VERIFIED: "verified",      // Has proof/documentation
-  CLAIMED: "claimed",        // Director statement, no docs
-  UNVERIFIED: "unverified",  // Rumor/hearsay
-  UNKNOWN: "unknown",        // No information
+  VERIFIED: "verified",
+  CLAIMED_NEEDS_EVIDENCE: "claimed_needs_evidence",
+  UNKNOWN: "unknown",
+  HOLD: "hold",
+  RED_FLAG: "red_flag",
 };
 
 function forensicsKey(festivalName, edition, section, submissionMethod, result, screened) {
@@ -33,8 +40,7 @@ function initForensicsState() {
 const forensics = initForensicsState();
 
 /**
- * Record a forensic entry for a festival submission
- * Six-field recovery mode
+ * Record a forensic entry for a festival submission (six-field recovery mode)
  */
 function recordForensic(filmKey, entry) {
   const key = forensicsKey(
@@ -46,6 +52,14 @@ function recordForensic(filmKey, entry) {
     entry.screened !== undefined ? entry.screened : "unknown"
   );
 
+  // Determine initial confidence based on source proof
+  let confidence = FORENSIC_CONFIDENCE.UNKNOWN;
+  if (entry.sourceProof && entry.sourceProof.toString().trim() !== "") {
+    confidence = FORENSIC_CONFIDENCE.VERIFIED;
+  } else if (entry.confidenceLevel) {
+    confidence = entry.confidenceLevel;
+  }
+
   if (!forensics[key]) {
     forensics[key] = {
       filmKey,
@@ -55,7 +69,7 @@ function recordForensic(filmKey, entry) {
       submissionMethod: entry.submissionMethod || "unknown",
       result: entry.result || "unknown",
       screened: entry.screened !== undefined ? entry.screened : "unknown",
-      confidence: FORENSIC_CONFIDENCE.VERIFIED,
+      confidence: confidence,
       sourceDocuments: entry.sourceDocuments || [],
       notes: entry.notes || "",
       created: new Date().toISOString(),
@@ -74,6 +88,18 @@ function updateConfidence(festivalName, edition, section, submissionMethod, resu
   const key = forensicsKey(festivalName, edition, section, submissionMethod, result, screened);
   if (!forensics[key]) return { error: "record_not_found" };
 
+  // Validate confidence level
+  const validLevels = [
+    FORENSIC_CONFIDENCE.VERIFIED,
+    FORENSIC_CONFIDENCE.CLAIMED_NEEDS_EVIDENCE,
+    FORENSIC_CONFIDENCE.UNKNOWN,
+    FORENSIC_CONFIDENCE.HOLD,
+    FORENSIC_CONFIDENCE.RED_FLAG,
+  ];
+  if (!validLevels.includes(confidenceLevel)) {
+    return { error: "invalid_confidence_level", validLevels };
+  }
+
   forensics[key].confidence = confidenceLevel;
   forensics[key].lastUpdated = new Date().toISOString();
   return { success: true, record: forensics[key] };
@@ -89,7 +115,7 @@ function getFilmForensics(filmKey) {
 }
 
 /**
- * Get all forensic records
+ * Get all forensic records (across all films)
  */
 function getAllForensics() {
   return Object.values(forensics);
@@ -97,7 +123,7 @@ function getAllForensics() {
 
 /**
  * Six-field recovery mode - reconstruct history from fragmented data
- * Minimum fields required: festivalName, edition, section, submissionMethod, result, screened
+ * Minimum required fields: festivalName, edition, section, submissionMethod, result, screened
  * Missing fields are filled with "unknown" and flagged
  */
 function recoverHistory(filmKey, fragmentedData) {
@@ -125,7 +151,7 @@ function recoverHistory(filmKey, fragmentedData) {
     recovered: filled,
     missingFields: missing,
     message: missing.length > 0
-      ? `Recovered history with ${missing.length} field(s) filled as "unknown"` 
+      ? `Recovered history with ${missing.length} field(s) filled as "unknown"`
       : "Complete history recovered from all six fields.",
   };
 }
@@ -135,12 +161,13 @@ function recoverHistory(filmKey, fragmentedData) {
  */
 function getConfidenceSummary(filmKey) {
   const records = getFilmForensics(filmKey);
-  
+
   const counts = {
     verified: 0,
-    claimed: 0,
-    unverified: 0,
+    claimedNeedsEvidence: 0,
     unknown: 0,
+    hold: 0,
+    redFlag: 0,
   };
 
   for (const r of records) {
@@ -150,11 +177,23 @@ function getConfidenceSummary(filmKey) {
 
   const dominantConfidence = Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0] || "unknown";
 
+  // Determine overall status
+  let overallStatus = "unknown";
+  if (counts.redFlag > 0) overallStatus = "red_flag";
+  else if (counts.hold > 0) overallStatus = "hold";
+  else if (counts.verified > 0 && counts.claimedNeedsEvidence === 0) overallStatus = "verified";
+  else if (counts.verified > 0 && counts.claimedNeedsEvidence > 0) overallStatus = "mixed";
+  else if (counts.claimedNeedsEvidence > 0 && counts.verified === 0) overallStatus = "claimed_needs_review";
+  else overallStatus = "unknown";
+
+  const summary = `${dominantConfidence} confidence across ${records.length} recorded festival entries`;
+
   return {
     totalRecords: records.length,
     confidenceDistribution: counts,
     dominantConfidence,
-    summary: `${dominantConfidence} confidence across ${records.length} recorded festival entries`,
+    overallStatus,
+    summary,
   };
 }
 
@@ -166,7 +205,44 @@ function hasVerifiedProof(festivalName, edition, section, submissionMethod, resu
   return forensics[key]?.confidence === FORENSIC_CONFIDENCE.VERIFIED;
 }
 
+/**
+ * Check if a record should block submissions (HOLD or RED_FLAG)
+ */
+function shouldBlockSubmission(confidence) {
+  return [FORENSIC_CONFIDENCE.HOLD, FORENSIC_CONFIDENCE.RED_FLAG].includes(confidence);
+}
+
+/**
+ * Get blockade reason for a record
+ */
+function getBlockadeReason(record) {
+  if (record.confidence === FORENSIC_CONFIDENCE.RED_FLAG) {
+    return "RED_FLAG: known issue - do not submit without explicit override";
+  }
+  if (record.confidence === FORENSIC_CONFIDENCE.HOLD) {
+    return "HOLD: uncertain history - review required before submission";
+  }
+  return null;
+}
+
+/**
+ * Validate a forensic record meets minimum criteria
+ */
+function validateRecord(festivalName, edition, section, submissionMethod, result, screened) {
+  const issues = [];
+
+  if (!festivalName || festivalName.trim() === "") issues.push("empty_festival_name");
+  if (!edition || edition.trim() === "") issues.push("empty_edition");
+  if (!section || section.trim() === "") issues.push("empty_section");
+
+  return {
+    valid: issues.length === 0,
+    issues,
+  };
+}
+
 export {
+  FORENSIC_CONFIDENCE,
   recordForensic,
   updateConfidence,
   getFilmForensics,
@@ -174,6 +250,8 @@ export {
   recoverHistory,
   getConfidenceSummary,
   hasVerifiedProof,
-  FORENSIC_CONFIDENCE,
+  shouldBlockSubmission,
+  getBlockadeReason,
+  validateRecord,
   forensicsKey,
 };
