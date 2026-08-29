@@ -3,5 +3,7 @@ import data from "../film-data.json" with {type:"json"};
 export default function handler(req,res){
  const token=(req.headers.authorization||"").replace(/^Bearer\s+/i,"");
  const s=verifyToken(token); if(!s)return res.status(401).json({error:"unauthorized"});
- return res.status(200).json(data[s.film]);
+ const film=data[s.film];
+ if(!film)return res.status(404).json({error:"film_not_found"});
+ return res.status(200).json(film);
 }
