@@ -27,17 +27,14 @@ const FORENSIC_CONFIDENCE = {
   RED_FLAG: "red_flag",
 };
 
+let forensics = {};
+
+/**
+ * Create a new forensics key from the 6 fields.
+ */
 function forensicsKey(festivalName, edition, section, submissionMethod, result, screened) {
   return `${festivalName}|${edition}|${section}|${submissionMethod}|${result}|${screened}`;
 }
-
-function initForensicsState() {
-  const registry = require("./data-layer").initFestivalRegistry();
-  if (!registry._forensics) registry._forensics = {};
-  return registry._forensics;
-}
-
-const forensics = initForensicsState();
 
 /**
  * Record a forensic entry for a festival submission (six-field recovery mode)
