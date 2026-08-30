@@ -28,6 +28,7 @@ const FORENSIC_CONFIDENCE = {
 };
 
 let forensics = {};
+try { forensics = require("./data-layer").getForensicsRef(); } catch(e) { forensics = {}; }
 
 /**
  * Create a new forensics key from the 6 fields.
@@ -38,6 +39,7 @@ function forensicsKey(festivalName, edition, section, submissionMethod, result, 
 
 /**
  * Record a forensic entry for a festival submission (six-field recovery mode)
+ * Extended with evidence: sourceUrl, evidenceDoc, discoveredAt
  */
 function recordForensic(filmKey, entry) {
   const key = forensicsKey(
@@ -57,7 +59,8 @@ function recordForensic(filmKey, entry) {
     confidence = entry.confidenceLevel;
   }
 
-  if (!forensics[key]) {
+  const existing = forensics[key];
+  if (!existing) {
     forensics[key] = {
       filmKey,
       festivalName: entry.festivalName,
@@ -69,12 +72,23 @@ function recordForensic(filmKey, entry) {
       confidence: confidence,
       sourceDocuments: entry.sourceDocuments || [],
       notes: entry.notes || "",
+      sourceUrl: entry.sourceUrl || null,
+      evidenceDoc: entry.evidenceDoc || null,
+      discoveredAt: entry.discoveredAt || new Date().toISOString(),
+      verifiedBy: entry.verifiedBy || null,
       created: new Date().toISOString(),
       lastUpdated: new Date().toISOString(),
     };
+  } else {
+    forensics[key].confidence = confidence;
+    forensics[key].lastUpdated = new Date().toISOString();
+    if (entry.sourceUrl) forensics[key].sourceUrl = entry.sourceUrl;
+    if (entry.evidenceDoc) forensics[key].evidenceDoc = entry.evidenceDoc;
+    if (entry.discoveredAt) forensics[key].discoveredAt = entry.discoveredAt;
+    if (entry.verifiedBy) forensics[key].verifiedBy = entry.verifiedBy;
+    if (entry.sourceDocuments) forensics[key].sourceDocuments = entry.sourceDocuments;
+    if (entry.notes) forensics[key].notes = entry.notes;
   }
-
-  forensics[key].lastUpdated = new Date().toISOString();
   return { success: true, key, entry: forensics[key] };
 }
 
@@ -100,6 +114,22 @@ function updateConfidence(festivalName, edition, section, submissionMethod, resu
   forensics[key].confidence = confidenceLevel;
   forensics[key].lastUpdated = new Date().toISOString();
   return { success: true, record: forensics[key] };
+}
+
+/**
+ * Get evidence for a specific forensic record
+ */
+function getEvidence(filmKey, festivalName, edition) {
+  const records = getFilmForensics(filmKey);
+  const matching = records.filter(r => r.festivalName === festivalName && r.edition === edition);
+  return matching.map(r => ({
+    sourceUrl: r.sourceUrl,
+    evidenceDoc: r.evidenceDoc,
+    discoveredAt: r.discoveredAt,
+    verifiedBy: r.verifiedBy,
+    confidence: r.confidence,
+    sourceDocuments: r.sourceDocuments,
+  }));
 }
 
 /**
@@ -243,6 +273,7 @@ export {
   recordForensic,
   updateConfidence,
   getFilmForensics,
+  getEvidence,
   getAllForensics,
   recoverHistory,
   getConfidenceSummary,

@@ -4,6 +4,7 @@ import { canScreenWithoutBurning, getPremiereRiskStatus, PremiereType } from "./
 import { detectCategoryMismatch, batchDetectMismatches } from "./category-detection.js";
 import { recordForensic, getFilmForensics, shouldBlockSubmission, getBlockadeReason } from "./distribution-forensics.js";
 import { getFilm } from "./data-layer.js";
+import { canRun } from "./agent-state.js";
 
 /**
  * Agent Decision Layer - deterministic local decision logic for festival strategy
@@ -415,6 +416,33 @@ function getForensicConfidence(filmKey, festivalName, edition) {
   return matching.length > 0 ? matching[0].confidence : FORENSIC_CONFIDENCE.UNKNOWN;
 }
 
+/**
+ * Determine whether the autonomous agent should run for a film.
+ * Enforces cooldown, in-progress guard, and RED_FLAG blockade.
+ * AI may research and analyze, but NEVER makes final eligibility/submission decisions.
+ */
+function shouldRunAgent(filmKey, intervalMinutes = 60) {
+  const runCheck = canRun(filmKey, intervalMinutes);
+  if (!runCheck.allowed) {
+    return { allowed: false, reason: runCheck.reason };
+  }
+
+  // Check for RED_FLAG forensic state that requires human review before any run
+  const records = getFestivalRecords(filmKey);
+  if (records.length > 0) {
+    const forensicConf = getForensicConfidence(filmKey, records[0].festivalName, records[0].edition);
+    if (forensicConf === FORENSIC_CONFIDENCE.RED_FLAG) {
+      return {
+        allowed: true,
+        reason: "RED_FLAG detected — agent may run for research only; no actions without human approval",
+        blocked: true,
+      };
+    }
+  }
+
+  return { allowed: true, reason: "Ready to run" };
+}
+
 export {
   determineFestivalStrategy,
   shouldSubmitToFestival,
@@ -422,4 +450,5 @@ export {
   versionStatus,
   TARGET_PRIORITY,
   getForensicConfidence,
+  shouldRunAgent,
 };

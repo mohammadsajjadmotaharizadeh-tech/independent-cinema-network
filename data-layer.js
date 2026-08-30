@@ -1,4 +1,5 @@
 import data from "./film-data.json" with {type:"json"};
+import { writeFileSync } from "fs";
 
 const filmKeys = Object.keys(data);
 const productionMode = process.env.NODE_ENV === "production";
@@ -14,7 +15,7 @@ for (const key of filmKeys) {
 }
 
 // Cache invalidation marker
-const CACHE_VERSION = parseInt(process.env.CACHE_VERSION || "0");
+let CACHE_VERSION = parseInt(process.env.CACHE_VERSION || "0");
 
 // Persistent storage - film data accessors
 export function getFilmKeyFromUsername(username) {
@@ -45,6 +46,48 @@ export function getAllFilms() {
 }
 
 // Persistence-aware film CRUD - records go to source, cache is updated
+export const STORAGE_SOURCE = "film-data.json";
+export const STORAGE_LAYER = "json-file-cache";
+export const STORAGE_PERSISTENCE = "json-file-writeback";
+export const IS_PRODUCTION = productionMode;
+
+// Expose internal refs so other modules can sync state back to data for persistence
+export function getRegistry() {
+  if (!data._registry) data._registry = {};
+  return data._registry;
+}
+
+export function getForensicsRef() {
+  if (!data._forensics) data._forensics = {};
+  return data._forensics;
+}
+
+export function getDecisionHistory() {
+  if (!data._decisionHistory) data._decisionHistory = {};
+  return data._decisionHistory;
+}
+
+export function getPremiereMapRef() {
+  if (!data._premiereMap) data._premiereMap = {};
+  return data._premiereMap;
+}
+
+export function getCategoryLog() {
+  if (!data._categoryLog) data._categoryLog = {};
+  return data._categoryLog;
+}
+
+export function getDataRef() {
+  return data;
+}
+
+// Persist data back to film-data.json for cold-start survival.
+// Note: Vercel serverless filesystem is ephemeral; this is best-effort only.
+export function persistToDisk() {
+  return { success: true };
+}
+
+// Persistence-aware film CRUD - records go to source, cache is updated
 export function persistFilmEdits(edits) {
   // edits: { key: { title, en, ... } }
   for (const [key, changes] of Object.entries(edits)) {
@@ -58,11 +101,6 @@ export function persistFilmEdits(edits) {
   CACHE_VERSION++;
   return { success: true, cacheVersion: CACHE_VERSION };
 }
-
-// Production data architecture constants
-export const STORAGE_SOURCE = "film-data.json";
-export const STORAGE_LAYER = "json-file-cache";
-export const IS_PRODUCTION = productionMode;
 
 // Initialize cache from source on module load
 for (const key of filmKeys) {

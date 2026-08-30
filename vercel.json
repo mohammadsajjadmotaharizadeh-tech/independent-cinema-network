@@ -1,5 +1,15 @@
 {
   "cleanUrls": true,
+  "crons": [
+    {
+      "path": "/api/agent-run?filmKey=sudden",
+      "schedule": "0 */6 * * *"
+    },
+    {
+      "path": "/api/agent-run?filmKey=battle",
+      "schedule": "0 */6 * * *"
+    }
+  ],
   "headers": [
     {
       "source": "/api/(.*)",
